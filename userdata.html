@@ -1,0 +1,93 @@
+<html>
+<head>
+	<title>USER DETAILS</title>
+	<style>
+		input{
+			font-size:20px;
+			padding:10px;
+			margin:5px;
+			
+		}
+		.button{
+			
+			font-size:20px;
+			padding:10px;
+			margin:5px;
+			margin-left:80px;
+		}
+		.form{
+			display:flex;
+		}
+	
+	</style>
+</head>
+<body>
+	<div class="form">
+		<form>
+			<div><input type="text" placeholder="Name" class="name"/></div>
+			<div><input type="text" placeholder=" User Name" class="user"/></div>
+			<div><input type="email" placeholder="Email" class="mail"/></div>
+			<div><input type="number" placeholder="Phone Number" class="phone"/></div>
+			<button class="button">SUBMIT</button>
+		</form>
+	</div>
+	<div class="userdata"></div>
+	
+</body>
+<script>
+	let button=document.querySelector(".button");
+	let result=JSON.parse(localStorage.getItem("allusers"))||[];
+	let userdata=document.querySelector(".userdata");
+	button.onclick=function(){
+	
+		let name=document.querySelector(".name").value;
+		let user=document.querySelector(".user").value;
+		let mail=document.querySelector(".mail").value;
+		let phone=document.querySelector(".phone").value;
+		
+		
+		if(name==""||user==""||mail==""||phone=="")
+		{
+			alert("enter details");
+		}
+		else
+		{
+			for(let i=0;i<result.length;i++)
+			{
+				if(result[i].user==user)
+				{
+					alert("already user exsit");
+					return;
+					
+				}
+				
+			}
+		
+		localStorage.setItem("allusers",JSON.stringify([...result,{name,user,mail,phone}]));
+	
+		
+		}
+			let div1=document.createElement("div");
+			div1.append(name);
+			let div2=document.createElement("div");
+			div2.append(user);
+			
+			let div3=document.createElement("div");
+			div3.append(mail);
+			
+			let div4=document.createElement("div");
+			div4.append(phone);
+			
+			let edit=document.createElement("button");
+			edit.innerHTML="edit";
+			let remove=document.createElement("button");
+			remove.innerHTML="delete";
+			
+			let view=document.createElement("div");
+			view.append(div1,div2,div3,div4,edit,remove);
+			userdata.append(view);
+		
+		
+	}
+</script>
+</html>
